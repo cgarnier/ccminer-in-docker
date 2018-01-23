@@ -1,6 +1,10 @@
 # ccminer-in-docker
 
 This is a Dockerfile to build a ccminer container on your Linux hosts.
+Forked form `kahiroka/ccminer-in-docker`
+It use a fork of ccminer by todd1251 with the support of `x16r` algo (ravencoin).
+You should use it only for the `x16r` algo.
+Mine other ones with kahiroka version.
 
 # Deps
 
@@ -8,28 +12,23 @@ NVIDIA/nvidia-docker
 
 https://github.com/NVIDIA/nvidia-docker
 
-# Setup
+# Usage
 
-    $ cd ccminer-in-docker
-    $ docker build -t ccminer/docker .
-    $ nvidia-docker run -d \
-          --name=ccminer \
-          -e ALGO=<algorithm> \
-          -e MINING_POOL=<MINING_POOL_WITH_PORT> \
-          -e USER_NAME=<USERNAME/WORKERNAME> \
-          -e PASSWORD=<PASSWORD> \
-          -v /etc/localtime:/etc/localtime:ro \
-          ccminer/docker 
+```bash
+nvidia-docker run --rm --name=rvnminer -d x16r-miner \
+  -a x16r \ 
+  --url="stratum+tcp://rvn.suprnova.cc:6666" \
+  --userpass="<worker user name>:<pwd>"
+```
 
 You can check the output of ccminer with:
 
-    $ docker logs -f ccminer
+```bash
+docker logs -f rvnminer
+```
 
-If there is no problem, you can stop/start this container as below.
+If there is no problem, you can stop this container as below.
 
-    $ docker stop ccminer
-    $ docker start ccminer
-
-You need to remove/rename the container when you rebuild and run it with the same name.
-
-    $ docker rm ccminer
+```bash
+docker kill ccminer
+```

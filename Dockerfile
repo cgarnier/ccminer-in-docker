@@ -1,5 +1,4 @@
 FROM nvidia/cuda:9.0-devel
-ENTRYPOINT ["/home/miner/run-miner.sh"]
 
 RUN groupadd -g 2000 miner && \
     useradd -u 2000 -g miner -m -s /bin/bash miner && \
@@ -12,5 +11,7 @@ RUN chmod +x /home/miner/run-miner.sh
 RUN chown miner:miner /home/miner/run-miner.sh
 
 USER miner
-RUN cd && git clone https://github.com/tpruvot/ccminer.git 
-RUN cd ~/ccminer && ./autogen.sh && ./configure --with-cuda=/usr/local/cuda && make -j$(($(nproc)+1))
+RUN cd && git clone https://github.com/todd1251/ccminer-x16r.git ccminer
+RUN cd ~/ccminer && ./autogen.sh && ./configure --with-cuda=/usr/local/cuda && make -j4
+ENTRYPOINT ["/home/miner/ccminer/ccminer"]
+

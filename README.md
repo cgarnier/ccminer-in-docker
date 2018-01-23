@@ -16,9 +16,9 @@ https://github.com/NVIDIA/nvidia-docker
 
 ```bash
 nvidia-docker run --rm --name=rvnminer -d x16r-miner \
-  -a x16r \ 
-  --url="stratum+tcp://rvn.suprnova.cc:6666" \
-  --userpass="<worker user name>:<pwd>"
+    -a x16r \ 
+    --url="stratum+tcp://rvn.suprnova.cc:6666" \
+    --userpass="<worker user name>:<pwd>"
 ```
 
 You can check the output of ccminer with:
